@@ -3,6 +3,23 @@
     height: 50px;
     background: black;
     border: 1px solid #FFFFFF;
+    margin: 0;
     margin-left: 235px;
     align-self: center;
+    cursor: pointer;
+    padding: 0;
+    outline: 0;
+    transition: .5s;
+}
+
+.profile__add-button:hover {
+    opacity: .8;
+}
+
+@media screen and (max-width:767px) {
+    .profile__add-button {
+        margin: 0;
+        width: 282px;
+        margin-top: 36px;
+    }
 }

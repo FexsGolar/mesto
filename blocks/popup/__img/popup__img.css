@@ -1,0 +1,15 @@
+/* .popup__img {
+    position: absolute;
+    top: -48px;
+    right: -48px;
+}
+ */
+
+@media screen and (max-width: 767px) {
+    .popup__img {
+        width: 26px;
+        height: 26px;
+        top: -41px;
+        right: -5px;
+    }
+}

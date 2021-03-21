@@ -1,0 +1,17 @@
+.popup__container {
+    background-color: #fff;
+    color: black;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 430px;
+    height: 330px;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 767px) {
+    .popup__container {
+        max-width: 282px;
+    }
+}

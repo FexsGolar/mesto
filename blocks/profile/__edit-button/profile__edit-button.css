@@ -3,4 +3,13 @@
     border: 1px solid #FFFFFF;
     width: 24px;
     height: 24px;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    transition: .5s;
+}
+
+.profile__edit-button:hover {
+    opacity: .8;
 }
