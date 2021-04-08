@@ -7,9 +7,7 @@
 
 @media screen and (max-width: 767px) {
     .popup__img {
-        width: 26px;
-        height: 26px;
-        top: -41px;
-        right: -5px;
+        width: 50px;
+        height: 36px;
     }
 }

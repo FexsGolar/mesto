@@ -19,53 +19,59 @@
             <div class="profile__container">
                 <div class="profile__title-container">
                     <h1 class="profile__title">Жак-Ив Кусто</h1>
-                    <button class="profile__edit-button"> <img src="./images/edit-button.svg" alt="Кнопка изменить"> </button>
+                    <button class="profile__edit-button" type="button"> <img src="./images/edit-button.svg" alt="Кнопка изменить"> </button>
                 </div>
                 <p class="profile__subtitle">Исследователь океана</p>
             </div>
-            <button class="profile__add-button"> <img src="./images/add-button.svg" alt="Кнопка изменить"> </button>
+            <button class="profile__add-button" type="button"> <img src="./images/add-button.svg" alt="Кнопка изменить"> </button>
         </section>
         <section class="elements">
             <article class="card">
                 <img src="./images/monastery.jpg" alt="Монастырь" class="card__img">
                 <div class="card__container">
                     <h2 class="card__title">Карачаевск</h2>
-                    <img src="./images/like.svg" alt="Лайк" class="card__icon">
+                    <button class="card__button">
+                    </button>
                 </div>
             </article>
             <article class="card">
                 <img src="./images/field.jpg" alt="Поле" class="card__img">
                 <div class="card__container">
                     <h2 class="card__title">Гора Эльбрус</h2>
-                    <img src="./images/like.svg" alt="Лайк" class="card__icon">
+                    <button class="card__button">
+                    </button>
                 </div>
             </article>
             <article class="card">
                 <img src="./images/mountain.jpg" alt="Гора" class="card__img">
                 <div class="card__container">
                     <h2 class="card__title">Домбай</h2>
-                    <img src="./images/like.svg" alt="Лайк" class="card__icon">
+                    <button class="card__button">
+                    </button>
                 </div>
             </article>
             <article class="card">
                 <img src="./images/field.jpg" alt="Поле" class="card__img">
                 <div class="card__container">
                     <h2 class="card__title">Гора Эльбрус</h2>
-                    <img src="./images/like.svg" alt="Лайк" class="card__icon">
+                    <button class="card__button">
+                    </button>
                 </div>
             </article>
             <article class="card">
                 <img src="./images/mountain.jpg" alt="Гора" class="card__img">
                 <div class="card__container">
                     <h2 class="card__title">Домбай</h2>
-                    <img src="./images/like.svg" alt="Лайк" class="card__icon">
+                    <button class="card__button">
+                    </button>
                 </div>
             </article>
             <article class="card">
                 <img src="./images/monastery.jpg" alt="Монастырь" class="card__img">
                 <div class="card__container">
                     <h2 class="card__title">Карачаево-Черкессия</h2>
-                    <img src="./images/like.svg" alt="Лайк" class="card__icon">
+                    <button class="card__button">
+                    </button>
                 </div>
             </article>
         </section>
@@ -73,24 +79,26 @@
     </main>
 
     <footer class="footer">
-        &copy; 2020 Mesto Russia
+        <p class="footer__paragraph">&copy; 2021 Mesto Russia</p>
     </footer>
     <div class="popup">
         <div class="popup__container">
-            <button class="popup__button"><img src="./images/close.svg" alt="Закрыть" class="popup__img"> </button>
-            <form class="forma">
+
+            <button class="popup__button" type="submit"><img src="./images/close.svg" alt="Закрыть" class="popup__img"> </button>
+
+            <form class="edit-profile" name="edit-profile">
                 <fieldset class="form">
-                    <h3 class="form__title">Редактировать профиль</h3>
-                    <label for="name" class="form__label"></label>
-                    <input class="form__item" type="text" id="name" name="name" value="Жак-Ив Кусто">
-                    <label for="job" class="form__label"></label>
-                    <input class="form__item" type="text" id="job" name="job" value="Исследователь океана">
-                    <button class="form__button">Сохранить</button>
+                    <h2 class="form__title">Редактировать профиль</h2>
+
+                    <input class="form__item form__item_name" type="text" id="name" name="name" value="Жак-Ив Кусто" placeholder="Имя">
+
+                    <input class="form__item form__item_job" type="text" id="job" name="job" value="Исследователь океана" placeholder="Профессия">
+                    <button class="form__button" type="submit">Сохранить</button>
                 </fieldset>
             </form>
         </div>
     </div>
-    <script src="./script/script.js"></script>
+    <script src="./script/index.js"></script>
 </body>
 
 </html>
