@@ -8,6 +8,8 @@
     border: none;
     cursor: pointer;
     transition: .5s;
+    font-size: 18px;
+    line-height: 22px;
 }
 
 .form__button:hover {

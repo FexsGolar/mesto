@@ -6,7 +6,7 @@
     line-height: 17px;
     outline: none;
     border: none;
-    border-bottom: 1px #000 solid;
+    border-bottom: 1px rgba(0, 0, 0, .2) solid;
 }
 
 .form__item:first-of-type {

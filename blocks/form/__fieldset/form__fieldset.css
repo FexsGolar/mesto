@@ -1,4 +1,4 @@
-.form {
+.form__fieldset {
     padding: 34px 36px 37px;
     border: 0;
     margin: auto;
@@ -6,7 +6,7 @@
 }
 
 @media screen and (max-width: 767px) {
-    .form {
+    .form__fieldset {
         max-width: 238px;
         padding: 25px 22px;
         width: 282px;
