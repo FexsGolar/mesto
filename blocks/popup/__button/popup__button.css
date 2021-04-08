@@ -6,6 +6,11 @@
     border: none;
     outline: 0;
     cursor: pointer;
+    transition: .5s;
+}
+
+.popup__button:hover {
+    opacity: .6;
 }
 
 .popup__button::focus {
@@ -16,7 +21,7 @@
     .popup__button {
         width: 26px;
         height: 26px;
-        top: -41px;
-        right: -5px;
+        top: -63px;
+        right: 23px;
     }
 }
