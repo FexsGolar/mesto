@@ -6,8 +6,6 @@ let profileSubTitle = document.querySelector('.profile__subtitle');
 let formElement = document.querySelector('.form');
 let name = document.querySelector('#name');
 let job = document.querySelector('#job');
-let formButton = document.querySelector('.form__button');
-let popupOpened = document.querySelector('.popup_opened')
 
 
 /* Функция на открытие popup */
