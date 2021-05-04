@@ -74,11 +74,11 @@
                     </button>
                 </div>
             </article> -->
-            <template id="card" class="card__template">
+            <template class="card__template">
                 <article class="card">
                     <button class="card__delete-button">
                     </button>
-                    <img alt="" class="card__img" all="" src="">
+                    <img alt="" class="card__img" src="">
                     <div class="card__container">
                         <h2 class="card__title"></h2>
                         <button class="card__button" type="button">
@@ -95,7 +95,7 @@
     </footer>
     <div class="popup">
         <div class="popup__container">
-            <button class="popup__button" type="button"><img src="./images/close.svg" alt="Закрыть" class="popup__img"> </button>
+            <button class="popup__button" type="button"><img src="./images/close.svg" alt="Закрыть" class="popup__close-button"> </button>
             <form class="form" name="edit-profile">
                 <fieldset class="form__fieldset">
                     <h2 class="form__title">Редактировать профиль</h2>
@@ -107,20 +107,29 @@
         </div>
     </div>
 
-    <div class="popup popup_add">
+    <div class="popup popup_type_add">
         <div class="popup__container">
-            <button class="popup__button popup__button_add" type="button"><img src="./images/close.svg" alt="Закрыть" class="popup__img"> </button>
+            <button class="popup__button popup__button_add" type="button"><img src="./images/close.svg" alt="Закрыть" class="popup__close-button"> </button>
             <form class="form form__add-card" name="add-card">
                 <fieldset class="form__fieldset">
                     <h2 class="form__title">Новое место</h2>
-                    <input class="form__item form__item_type_place" type="text" id="place" name="place" placeholder="Название">
-                    <input class="form__item form__item_type_img" type="text" id="img" name="img" placeholder="Ссылка на картинку">
+                    <input class="form__item form__item_type_place" type="text" id="place" name="place" value="" placeholder="Название">
+                    <input class="form__item form__item_type_img" type="text" id="img" name="img" value="" placeholder="Ссылка на картинку">
                     <button class="form__button form__button_add" type="submit">Создать</button>
                 </fieldset>
             </form>
         </div>
     </div>
-    <script src="./script/index.js"></script>
+
+    <div class="popup popup_type_image">
+        <div class="popup__container">
+            <button class="popup__button popup__button_close" type="button"><img src="./images/close.svg" alt="Закрыть" class="popup__close-button"> </button>
+            <img src="" alt="" class="popup__image">
+            <p class="popup__title"></p>
+        </div>
+    </div>
+
+    <script src="./script/index-copy.js"></script>
 </body>
 
 </html>

@@ -6,7 +6,7 @@
  */
 
 @media screen and (max-width: 767px) {
-    .popup__img {
+    .popup__close-button {
         width: 50px;
         height: 36px;
     }
