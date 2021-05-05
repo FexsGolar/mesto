@@ -97,13 +97,20 @@ popupImageCloseBtn.addEventListener('click', popupImageClose);
 // Функция на открытие popup
 function popupImageZoom() {
     popupImage.classList.add('popup_opened');
-    const popupImgFull = document.querySelector('.popup__image');
-    const imageElement = document.querySelector('.card__img');
-    //const popupTitleFull = document.querySelector('.popup__title');
-    popupImgFull.src = imageElement.src;
-    //popupTitleFull.textContent = imageElement.alt;
+    //const popupImgFull = document.querySelector('.popup__image');
+    //const imageElement = document.querySelector('.card__img');
+    //popupImgFull.src = imageElement.src;
 }
 
+const popupImgFull = document.querySelector('.popup__image');
+/* Общая функция на popup c картинкой */
+function openPreviewPopup(name, link) {
+    popupImgFull.src = link.textContent;
+    popupImgFull.alt = name.textContent;
+    popupImgFull.textContent = name.textContent;
+    popupImageZoom(popupImage);
+    //console.log(name);
+}
 
 // Функция на удаление карточки
 function deleteCard(evt) {
@@ -124,7 +131,7 @@ function createCard(cardData) {
     // Удаление, лайк, увеличение
     removeIconElement.addEventListener('click', deleteCard);
     likeIconElement.addEventListener('click', () => likeIconElement.classList.toggle('card__button_active'));
-    imageElement.addEventListener('click', popupImageZoom);
+    imageElement.addEventListener('click', openPreviewPopup);
     // Возвращаем готовый элемент DOM.
     // Обратите внимание, мы его никуда не вставили на страницу, в DOM его нет.
     // Он пока хранится в переменной в памяти и нигде больше.
