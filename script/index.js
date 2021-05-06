@@ -12,7 +12,7 @@ const popupAddCloseBtn = document.querySelector('.popup__button_add');
 const add = document.querySelector('.profile__add-button');
 const place = document.querySelector('#place');
 const img = document.querySelector('#img');
-const formElementAdd = document.querySelector('.form__add-card');
+const formElementAdd = document.querySelector('.form_type_add-card');
 // Попап с картинкой
 const popupImage = document.querySelector('.popup_type_image');
 const popupImageCloseBtn = document.querySelector('.popup__button_close');
