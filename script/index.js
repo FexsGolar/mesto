@@ -1,3 +1,4 @@
+//Переменные
 const edit = document.querySelector('.profile__edit-button');
 const popup = document.querySelector('.popup');
 const close = document.querySelector('.popup__button');
@@ -9,7 +10,7 @@ const job = document.querySelector('#job');
 // Форма на добавление
 const popupAdd = document.querySelector('.popup_type_add');
 const popupAddCloseBtn = document.querySelector('.popup__button_add');
-const add = document.querySelector('.profile__add-button');
+const profileAddButton = document.querySelector('.profile__add-button');
 const place = document.querySelector('#place');
 const img = document.querySelector('#img');
 const formElementAdd = document.querySelector('.form_type_add-card');
@@ -51,93 +52,52 @@ const cards = [{
     },
 ];
 
-
-
-/* Функция на открытие popup */
-function popupOpen() {
-    popup.classList.add('popup_opened');
-}
-
-/* Функция на закрытие popup */
-function popupClose() {
-    popup.classList.remove('popup_opened');
-}
-
+//Обработчики
 /* Открываю окно по клику на edit + заполняю value */
 edit.addEventListener('click', () => {
-    popupOpen();
+    togglePopupWindow(popup);
     name.value = profileTitle.textContent;
     job.value = profileSubTitle.textContent;
 
 });
-
 /* При клике на крестик закрываю форму без изменений */
-close.addEventListener('click', popupClose);
+close.addEventListener('click', () => togglePopupWindow(popup));
+/* Выполнянем функцию при нажатии на Сохранить */
+formElement.addEventListener('submit', formSubmitHandler);
+/* Открываю окно по клику на edit + value не заполняю, оно должно быть пустое */
+profileAddButton.addEventListener('click', () => togglePopupWindow(popupAdd));
+/* При клике на крестик закрываю форму без изменений */
+popupAddCloseBtn.addEventListener('click', () => togglePopupWindow(popupAdd));
+/* При клике на фон закрываем любой попап */
+document.addEventListener("click", closePopupClick);
+/* Закрываем popup c картинкой по клику на крест*/
+popupImageCloseBtn.addEventListener('click', () => togglePopupWindow(popupImage));
+// Слушаем отправку формы на добавление карточки
+formElementAdd.addEventListener('submit', onFormSubmit);
+
+//Функции
+
+//Универсальная функция на открытие всех PopUp
+function togglePopupWindow(popup) {
+    popup.classList.toggle('popup_opened')
+}
 
 /* При сохранении формы меняются значения в html и вызывается функция на закрытие формы */
 function formSubmitHandler(evt) {
     evt.preventDefault();
     profileTitle.textContent = name.value;
     profileSubTitle.textContent = job.value;
-    popupClose();
-}
-
-
-/* Выполнянем функцию при нажатии на Сохранить */
-formElement.addEventListener('submit', formSubmitHandler);
-
-/* Функция на открытие popup c добавлением карточки*/
-function popupAddOpen() {
-    popupAdd.classList.add('popup_opened');
-}
-
-/* Функция на закрытие popup c добавлением карточки*/
-function popupAddClose() {
-    popupAdd.classList.remove('popup_opened');
-}
-
-/* Открываю окно по клику на edit + value не заполняю, оно должно быть пустое */
-add.addEventListener('click', () => {
-    popupAddOpen();
-});
-
-/* При клике на крестик закрываю форму без изменений */
-popupAddCloseBtn.addEventListener('click', popupAddClose);
-
-/* Функция на закрытие popup c картинкой */
-function popupImageClose() {
-    popupImage.classList.remove('popup_opened');
+    togglePopupWindow(popup);
 }
 
 /* Закрытие при клике на фон */
-/* Для всех 3 функций, тк они не могут быть открыты одновременно */
 function closePopupClick(evt) {
     if (evt.target.classList.contains("popup")) {
-        popupClose();
-        popupImageClose();
-        popupAddClose();
+        const popUpOpened = document.querySelector('.popup_opened');
+        togglePopupWindow(popUpOpened);
     }
 }
 
-/* При клике на фон закрываем любой попап */
-document.addEventListener("click", closePopupClick);
-
-/* Закрываем popup c картинкой по клику на крест*/
-popupImageCloseBtn.addEventListener('click', popupImageClose);
-
-// Функция на открытие popup
-function popupImageZoom() {
-    popupImage.classList.add('popup_opened');
-}
-
-
-/* Общая функция на popup c картинкой */
-/* function openPreviewPopup(name, link) {
-    popupImgFull.src = link;
-    popupImgFull.alt = name;
-    popupImgFull.textContent = name;
-    popupImageZoom();
-} */
 
 // Функция на удаление карточки
 function deleteCard(evt) {
@@ -156,17 +116,18 @@ function createCard(cardData) {
     // Устанавливаем заголовок и URL картинки из объекта параметров (аргумента функции)
     titleElement.textContent = cardData.name;
     imageElement.src = cardData.link;
+    imageElement.alt = cardData.name;
     // Открытие попса с картинкой
-    function ImageClickHandler() {
+    function imageClickHandler() {
         popupImgFull.src = cardData.link;
         popupImgFull.alt = cardData.name;
         popupTitleFull.textContent = cardData.name;
-        popupImageZoom();
+        togglePopupWindow(popupImage);
     }
     // Удаление, лайк, увеличение
     removeIconElement.addEventListener('click', deleteCard);
     likeIconElement.addEventListener('click', () => likeIconElement.classList.toggle('card__button_active'));
-    imageElement.addEventListener('click', ImageClickHandler);
+    imageElement.addEventListener('click', imageClickHandler);
     // Возвращаем готовый элемент DOM.
     // Обратите внимание, мы его никуда не вставили на страницу, в DOM его нет.
     // Он пока хранится в переменной в памяти и нигде больше.
@@ -200,11 +161,8 @@ function onFormSubmit(event) {
     cardsContainer.prepend(cardElement);
 
     //после этого закрываем popup
-    popupAddClose();
+    togglePopupWindow(popupAdd);
 
-    // Обнуляем поля формы
-    formInputName.value = '';
-    formInputImage.value = '';
+    // Обнуляем поля формы через метод reset (все поля, сколько бы их не было)
+    formElementAdd.reset();
 }
-// Слушаем отправку формы
-formElementAdd.addEventListener('submit', onFormSubmit);
