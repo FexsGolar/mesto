@@ -5,22 +5,10 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, .5);
-    display: none;
     justify-content: center;
     align-items: center;
-    animation: show .2s;
-    transform: scale(1);
-}
-
-@keyframes show {
-    from {
-        transform: scale(0);
-        opacity: 0;
-        z-index: -1;
-    }
-    to {
-        transform: scale(1);
-        opacity: 1;
-        z-index: 2;
-    }
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility .3s, opacity .3s linear;
 }

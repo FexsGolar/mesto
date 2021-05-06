@@ -6,6 +6,51 @@ const profileSubTitle = document.querySelector('.profile__subtitle');
 const formElement = document.querySelector('.form');
 const name = document.querySelector('#name');
 const job = document.querySelector('#job');
+// Форма на добавление
+const popupAdd = document.querySelector('.popup_type_add');
+const popupAddCloseBtn = document.querySelector('.popup__button_add');
+const add = document.querySelector('.profile__add-button');
+const place = document.querySelector('#place');
+const img = document.querySelector('#img');
+const formElementAdd = document.querySelector('.form__add-card');
+// Попап с картинкой
+const popupImage = document.querySelector('.popup_type_image');
+const popupImageCloseBtn = document.querySelector('.popup__button_close');
+// выбираем родительский блок для всех карточек 
+const cardsContainer = document.querySelector('.elements');
+// Инпуты с данными формы
+const formInputName = formElementAdd.querySelector('.form__item_type_place');
+const formInputImage = formElementAdd.querySelector('.form__item_type_img');
+// Картинка full
+const popupImgFull = document.querySelector('.popup__image');
+const popupTitleFull = document.querySelector('.popup__title');
+// Массив карточек для начальной генерации
+const cards = [{
+        name: 'Архыз',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+        name: 'Челябинская область',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+        name: 'Иваново',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+        name: 'Камчатка',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+        name: 'Холмогорский район',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    },
+    {
+        name: 'Байкал',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    },
+];
+
 
 
 /* Функция на открытие popup */
@@ -41,16 +86,6 @@ function formSubmitHandler(evt) {
 /* Выполнянем функцию при нажатии на Сохранить */
 formElement.addEventListener('submit', formSubmitHandler);
 
-// Спринт 5
-
-// Форма на добавление
-const popupAdd = document.querySelector('.popup_type_add');
-const popupAddCloseBtn = document.querySelector('.popup__button_add');
-const add = document.querySelector('.profile__add-button');
-const place = document.querySelector('#place');
-const img = document.querySelector('#img');
-const formElementAdd = document.querySelector('.form__add-card')
-
 /* Функция на открытие popup c добавлением карточки*/
 function popupAddOpen() {
     popupAdd.classList.add('popup_opened');
@@ -69,10 +104,6 @@ add.addEventListener('click', () => {
 /* При клике на крестик закрываю форму без изменений */
 popupAddCloseBtn.addEventListener('click', popupAddClose);
 
-// Попап с картинкой
-const popupImage = document.querySelector('.popup_type_image');
-const popupImageCloseBtn = document.querySelector('.popup__button_close');
-
 /* Функция на закрытие popup c картинкой */
 function popupImageClose() {
     popupImage.classList.remove('popup_opened');
@@ -88,7 +119,7 @@ function closePopupClick(evt) {
     }
 }
 
-/* При клике на фон закрываем попап */
+/* При клике на фон закрываем любой попап */
 document.addEventListener("click", closePopupClick);
 
 /* Закрываем popup c картинкой по клику на крест*/
@@ -97,26 +128,23 @@ popupImageCloseBtn.addEventListener('click', popupImageClose);
 // Функция на открытие popup
 function popupImageZoom() {
     popupImage.classList.add('popup_opened');
-    //const popupImgFull = document.querySelector('.popup__image');
-    //const imageElement = document.querySelector('.card__img');
-    //popupImgFull.src = imageElement.src;
 }
 
-const popupImgFull = document.querySelector('.popup__image');
+
 /* Общая функция на popup c картинкой */
-function openPreviewPopup(name, link) {
-    popupImgFull.src = link.textContent;
-    popupImgFull.alt = name.textContent;
-    popupImgFull.textContent = name.textContent;
-    popupImageZoom(popupImage);
-    //console.log(name);
-}
+/* function openPreviewPopup(name, link) {
+    popupImgFull.src = link;
+    popupImgFull.alt = name;
+    popupImgFull.textContent = name;
+    popupImageZoom();
+} */
 
 // Функция на удаление карточки
 function deleteCard(evt) {
     evt.target.closest('.card').remove();
 }
 
+// Функция генерации карточки
 function createCard(cardData) {
     // Находим template и клонируем его содержимое, длальше действия идут с ним
     const element = document.querySelector('.card__template').content.cloneNode(true);
@@ -128,46 +156,21 @@ function createCard(cardData) {
     // Устанавливаем заголовок и URL картинки из объекта параметров (аргумента функции)
     titleElement.textContent = cardData.name;
     imageElement.src = cardData.link;
+    // Открытие попса с картинкой
+    function ImageClickHandler() {
+        popupImgFull.src = cardData.link;
+        popupTitleFull.textContent = cardData.name;
+        popupImageZoom();
+    }
     // Удаление, лайк, увеличение
     removeIconElement.addEventListener('click', deleteCard);
     likeIconElement.addEventListener('click', () => likeIconElement.classList.toggle('card__button_active'));
-    imageElement.addEventListener('click', openPreviewPopup);
+    imageElement.addEventListener('click', ImageClickHandler);
     // Возвращаем готовый элемент DOM.
     // Обратите внимание, мы его никуда не вставили на страницу, в DOM его нет.
     // Он пока хранится в переменной в памяти и нигде больше.
     return element;
 }
-
-// Массив карточек для начальной генерации
-const cards = [{
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    },
-];
-
-// выбираем родительский блок для всех карточек 
-const cardsContainer = document.querySelector('.elements');
-
 
 cards.forEach((card) => {
     // Создали DOM элемент (его возвращает функция).
@@ -176,9 +179,7 @@ cards.forEach((card) => {
     cardsContainer.append(cardElement);
 });
 
-// Инпуты с данными этой формы
-const formInputName = formElementAdd.querySelector('.form__item_type_place');
-const formInputImage = formElementAdd.querySelector('.form__item_type_img');
+
 // Функция-коллбэк события отправки формы.
 function onFormSubmit(event) {
     // Предотвращаем перезагрузку страницы при реальной отправке формы.
