@@ -159,6 +159,7 @@ function createCard(cardData) {
     // Открытие попса с картинкой
     function ImageClickHandler() {
         popupImgFull.src = cardData.link;
+        popupImgFull.alt = cardData.name;
         popupTitleFull.textContent = cardData.name;
         popupImageZoom();
     }
