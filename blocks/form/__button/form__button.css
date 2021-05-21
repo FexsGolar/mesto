@@ -20,6 +20,15 @@
     outline: none;
 }
 
+
+/* .form__button:disabled {
+    background-color: transparent;
+    border: 1px solid #000;
+    color: #000;
+    opacity: .2;
+    cursor: not-allowed;
+} */
+
 @media screen and (max-width: 767px) {
     .form__button {
         width: 238px;

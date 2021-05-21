@@ -74,13 +74,21 @@ document.addEventListener("click", closePopupClick);
 popupImageCloseBtn.addEventListener('click', () => togglePopupWindow(popupImage));
 // Слушаем отправку формы на добавление карточки
 formElementAdd.addEventListener('submit', onFormSubmit);
+// Слушатель + функция на закрытие попапа при нажатии Escape 
+document.addEventListener("keydown", function(evt) {
+    if (evt.key === 'Escape') {
+        const popUpOpened = document.querySelector('.popup_opened');
+        togglePopupWindow(popUpOpened);;
+    }
+})
 
 //Функции
 
 //Универсальная функция на открытие всех PopUp
 function togglePopupWindow(popup) {
-    popup.classList.toggle('popup_opened')
+    popup.classList.toggle('popup_opened');
 }
+
 
 /* При сохранении формы меняются значения в html и вызывается функция на закрытие формы */
 function formSubmitHandler(evt) {
@@ -157,7 +165,7 @@ function onFormSubmit(event) {
     };
     // Получаем DOM-элемент из функции.
     const cardElement = createCard(cardData);
-    // Вставляем его в DOM, но первым ребёнком, а не в конце, как первоначальные карточки.
+    // Вставляем его в DOM, но первым ребёнком`, а не в конце, как первоначальные карточки.
     cardsContainer.prepend(cardElement);
 
     //после этого закрываем popup
@@ -166,3 +174,6 @@ function onFormSubmit(event) {
     // Обнуляем поля формы через метод reset (все поля, сколько бы их не было)
     formElementAdd.reset();
 }
+
+// функция на валидацию форм, в качестве аргумента берет конфиг из validate.js
+enableValidation(config);
