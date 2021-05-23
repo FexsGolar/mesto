@@ -1,12 +1,12 @@
 //Переменные
 const edit = document.querySelector('.profile__edit-button');
-const popup = document.querySelector('.popup');
-const close = document.querySelector('.popup__button');
+const popupEdit = document.querySelector('.popup_type_edit');
+const popupEditCloseBtn = document.querySelector('.popup__button_edit');
 const profileTitle = document.querySelector('.profile__title');
 const profileSubTitle = document.querySelector('.profile__subtitle');
-const formElement = document.querySelector('.form');
-const name = document.querySelector('#name');
-const job = document.querySelector('#job');
+const formElementEdit = document.querySelector('.form_type_edit-card');
+const profileNameElement = document.querySelector('#name');
+const profileJobElement = document.querySelector('#job');
 // Форма на добавление
 const popupAdd = document.querySelector('.popup_type_add');
 const popupAddCloseBtn = document.querySelector('.popup__button_add');
@@ -19,90 +19,72 @@ const popupImage = document.querySelector('.popup_type_image');
 const popupImageCloseBtn = document.querySelector('.popup__button_close');
 // выбираем родительский блок для всех карточек 
 const cardsContainer = document.querySelector('.elements');
-// Инпуты с данными формы
+// Все input и кнопка из формы с добавлением карточки для функции toggleButtonState
+const formAddInputs = popupAdd.querySelectorAll('.form__item');
+const formAddButton = popupAdd.querySelector('.form__button_add');
+// Инпуты с данными формы Add
 const formInputName = formElementAdd.querySelector('.form__item_type_place');
 const formInputImage = formElementAdd.querySelector('.form__item_type_img');
 // Картинка full
 const popupImgFull = document.querySelector('.popup__image');
 const popupTitleFull = document.querySelector('.popup__title');
-// Массив карточек для начальной генерации
-const cards = [{
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    },
-];
 
 //Обработчики
 /* Открываю окно по клику на edit + заполняю value */
 edit.addEventListener('click', () => {
-    togglePopupWindow(popup);
-    name.value = profileTitle.textContent;
-    job.value = profileSubTitle.textContent;
+    openPopupWindow(popupEdit);
+    profileNameElement.value = profileTitle.textContent;
+    profileJobElement.value = profileSubTitle.textContent;
 
 });
 /* При клике на крестик закрываю форму без изменений */
-close.addEventListener('click', () => togglePopupWindow(popup));
+popupEditCloseBtn.addEventListener('click', () => closePopupWindow(popupEdit));
 /* Выполнянем функцию при нажатии на Сохранить */
-formElement.addEventListener('submit', formSubmitHandler);
+formElementEdit.addEventListener('submit', handleProfileFormSubmit);
 /* Открываю окно по клику на edit + value не заполняю, оно должно быть пустое */
-profileAddButton.addEventListener('click', () => togglePopupWindow(popupAdd));
+profileAddButton.addEventListener('click', () => openPopupWindow(popupAdd));
 /* При клике на крестик закрываю форму без изменений */
-popupAddCloseBtn.addEventListener('click', () => togglePopupWindow(popupAdd));
+popupAddCloseBtn.addEventListener('click', () => closePopupWindow(popupAdd));
 /* При клике на фон закрываем любой попап */
 document.addEventListener("click", closePopupClick);
 /* Закрываем popup c картинкой по клику на крест*/
-popupImageCloseBtn.addEventListener('click', () => togglePopupWindow(popupImage));
+popupImageCloseBtn.addEventListener('click', () => closePopupWindow(popupImage));
 // Слушаем отправку формы на добавление карточки
 formElementAdd.addEventListener('submit', onFormSubmit);
-// Слушатель + функция на закрытие попапа при нажатии Escape 
-document.addEventListener("keydown", function(evt) {
-    if (evt.key === 'Escape') {
-        const popUpOpened = document.querySelector('.popup_opened');
-        togglePopupWindow(popUpOpened);;
-    }
-})
 
 //Функции
 
-//Универсальная функция на открытие всех PopUp
-function togglePopupWindow(popup) {
-    popup.classList.toggle('popup_opened');
+function closePopupEsc(evt) {
+    if (evt.key === 'Escape') {
+        const popUpOpened = document.querySelector('.popup_opened');
+        closePopupWindow(popUpOpened);
+    }
+}
+
+function openPopupWindow(popup) {
+    popup.classList.add('popup_opened');
+    document.addEventListener("keydown", closePopupEsc);
+}
+
+function closePopupWindow(popup) {
+    popup.classList.remove('popup_opened');
+    document.removeEventListener("keydown", closePopupEsc);
 }
 
 
 /* При сохранении формы меняются значения в html и вызывается функция на закрытие формы */
-function formSubmitHandler(evt) {
+function handleProfileFormSubmit(evt) {
     evt.preventDefault();
-    profileTitle.textContent = name.value;
-    profileSubTitle.textContent = job.value;
-    togglePopupWindow(popup);
+    profileTitle.textContent = profileNameElement.value;
+    profileSubTitle.textContent = profileJobElement.value;
+    closePopupWindow(popupEdit);
 }
 
 /* Закрытие при клике на фон */
 function closePopupClick(evt) {
     if (evt.target.classList.contains("popup")) {
         const popUpOpened = document.querySelector('.popup_opened');
-        togglePopupWindow(popUpOpened);
+        closePopupWindow(popUpOpened);
     }
 }
 
@@ -115,7 +97,7 @@ function deleteCard(evt) {
 // Функция генерации карточки
 function createCard(cardData) {
     // Находим template и клонируем его содержимое, длальше действия идут с ним
-    const element = document.querySelector('.card__template').content.cloneNode(true);
+    const element = document.querySelector('.card-template').content.cloneNode(true);
     // Находим элементы в **клонированном шаблоне**, с которыми будем работать.
     const titleElement = element.querySelector('.card__title');
     const imageElement = element.querySelector('.card__img');
@@ -130,7 +112,7 @@ function createCard(cardData) {
         popupImgFull.src = cardData.link;
         popupImgFull.alt = cardData.name;
         popupTitleFull.textContent = cardData.name;
-        togglePopupWindow(popupImage);
+        openPopupWindow(popupImage);
     }
     // Удаление, лайк, увеличение
     removeIconElement.addEventListener('click', deleteCard);
@@ -169,10 +151,13 @@ function onFormSubmit(event) {
     cardsContainer.prepend(cardElement);
 
     //после этого закрываем popup
-    togglePopupWindow(popupAdd);
+    closePopupWindow(popupAdd);
 
     // Обнуляем поля формы через метод reset (все поля, сколько бы их не было)
     formElementAdd.reset();
+
+    // берем функцию из validate.js для обнуления кнопки при повторном создании карточки
+    toggleButtonState(formAddButton, Array.from(formAddInputs));
 }
 
 // функция на валидацию форм, в качестве аргумента берет конфиг из validate.js

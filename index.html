@@ -34,10 +34,10 @@
     <footer class="footer">
         <p class="footer__paragraph">&copy; 2021 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup_type_edit">
         <div class="popup__container">
-            <button class="popup__button" type="button"><img src="./images/close.svg" alt="Закрыть" class="popup__close-button"> </button>
-            <form class="form" name="edit-profile" novalidate>
+            <button class="popup__button popup__button_edit" type="button"><img src="./images/close.svg" alt="Закрыть" class="popup__close-button"> </button>
+            <form class="form form_type_edit-card" name="edit-profile" novalidate>
                 <fieldset class="form__fieldset">
                     <h2 class="form__title">Редактировать профиль</h2>
                     <input class="form__item form__item_type_name" required minlength="2" maxlength="40" type="text" id="name" name="name" value="Жак-Ив Кусто" placeholder="Имя">
@@ -70,7 +70,7 @@
         <div class="popup__container popup__container_type_transparent">
             <button class="popup__button popup__button_close" type="button"><img src="./images/close.svg" alt="Закрыть" class="popup__close-button"> </button>
             <figure class="popup__figure">
-                <img class="popup__image" alt="alt для тренажера" src="./images/for-moderation.svg">
+                <img class="popup__image" alt="#" src="#">
                 <figcaption class="popup__title"></figcaption>
             </figure>
 
@@ -78,9 +78,9 @@
         </div>
     </div>
 
-    <template class="card__template">
+    <template class="card-template">
         <article class="card">
-                <button class="card__delete-button">
+                <button type="button" class="card__delete-button">
                 </button>
                 <img alt="" class="card__img">
                 <div class="card__container">
@@ -90,6 +90,7 @@
                 </div>
         </article>
     </template>
+    <script src="./script/initial-cards.js"></script>
     <script src="./script/validate.js"></script>
     <script src="./script/index.js"></script>
 </body>

@@ -4,10 +4,9 @@ function hideInputError(formElement, inputElement) {
     // находим отдельный span с текстом ошибки
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
     //Убираем текст об ошибки из input внизу
-    inputElement.classList.remove(config.inputErrorActive);
     errorElement.classList.remove(config.inputErrorActive);
+    inputElement.classList.remove(config.inputSelectorError);
     errorElement.textContent = '';
-
 }
 
 function showInputError(formElement, inputElement) {
@@ -16,6 +15,7 @@ function showInputError(formElement, inputElement) {
     // находим отдельный span с текстом ошибки
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
     // показываем состояние ошибки
+    inputElement.classList.add(config.inputSelectorError);
     errorElement.textContent = inputElement.validationMessage;
     errorElement.classList.add(config.inputErrorActive);
 }
@@ -25,7 +25,7 @@ function checkInputValidity(formElement, inputElement) {
     if (inputElement.validity.valid) {
         hideInputError(formElement, inputElement);
     } else {
-        showInputError(formElement, inputElement)
+        showInputError(formElement, inputElement);
     }
     //если валидный прячем ошибку, иначе показываем ошибку
 }
@@ -82,6 +82,7 @@ function enableValidation(config) {
 const config = {
     formSelector: '.form',
     inputSelector: '.form__item',
+    inputSelectorError: 'form__item_error',
     inputErrorActive: 'form__item-error_active',
     buttonSelector: '.form__button',
     buttonSelectorDisabled: 'form__button_disabled',
