@@ -1,8 +1,11 @@
-class Card {
+import { openPopupWindow } from "./index.js";
+
+export default class Card {
     constructor(cardData, template) {
         this._template = document.querySelector(template).content;
         this._cardData = cardData;
     }
+
     _imageClickHandler = () => {
         const popupImage = document.querySelector('.popup_type_image');
         const popupImgFull = popupImage.querySelector('.popup__image');
@@ -24,7 +27,7 @@ class Card {
         this._cardElement.remove();
     };
 
-    _createCard = () => {
+    _createCard() {
         this._card = this._template.cloneNode(true);
         this._cardImg = this._card.querySelector(".card__img");
         this._cardTitle = this._card.querySelector(".card__title");
@@ -40,8 +43,8 @@ class Card {
 
     }
 
-    getCard = () => {
+    getCard() {
         this._createCard();
         return this._card;
     };
-}
+};
