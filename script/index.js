@@ -89,48 +89,62 @@ function closePopupClick(evt) {
 }
 
 
-// Функция на удаление карточки
-function deleteCard(evt) {
-    evt.target.closest('.card').remove();
-}
-
-// Функция генерации карточки
-function createCard(cardData) {
-    // Находим template и клонируем его содержимое, длальше действия идут с ним
-    const element = document.querySelector('.card-template').content.cloneNode(true);
-    // Находим элементы в **клонированном шаблоне**, с которыми будем работать.
-    const titleElement = element.querySelector('.card__title');
-    const imageElement = element.querySelector('.card__img');
-    const likeIconElement = element.querySelector('.card__button');
-    const removeIconElement = element.querySelector('.card__delete-button');
-    // Устанавливаем заголовок и URL картинки из объекта параметров (аргумента функции)
-    titleElement.textContent = cardData.name;
-    imageElement.src = cardData.link;
-    imageElement.alt = cardData.name;
-    // Открытие попса с картинкой
-    function imageClickHandler() {
-        popupImgFull.src = cardData.link;
-        popupImgFull.alt = cardData.name;
-        popupTitleFull.textContent = cardData.name;
+/* class Card {
+    constructor(cardData, template) {
+        this._template = document.querySelector(template).content;
+        this._cardData = cardData;
+    }
+    _imageClickHandler = () => {
+        const popupImage = document.querySelector('.popup_type_image');
+        const popupImgFull = popupImage.querySelector('.popup__image');
+        const popupTitleFull = popupImage.querySelector('.popup__title');
+        popupImgFull.src = this._cardImg.src;
+        const popupText = this._cardTitle.textContent;
+        popupTitleFull.textContent = popupText;
+        popupImgFull.alt = popupText;
         openPopupWindow(popupImage);
     }
-    // Удаление, лайк, увеличение
-    removeIconElement.addEventListener('click', deleteCard);
-    likeIconElement.addEventListener('click', () => likeIconElement.classList.toggle('card__button_active'));
-    imageElement.addEventListener('click', imageClickHandler);
-    // Возвращаем готовый элемент DOM.
-    // Обратите внимание, мы его никуда не вставили на страницу, в DOM его нет.
-    // Он пока хранится в переменной в памяти и нигде больше.
-    return element;
-}
 
+    _addEventListeners() {
+        this._cardDeleteBtn.addEventListener('click', this._deleteCard);
+        this._cardLikeBtn.addEventListener('click', () => this._cardLikeBtn.classList.toggle('card__button_active'));
+        this._cardImg.addEventListener('click', this._imageClickHandler);
+    }
+
+    _deleteCard = () => {
+        this._cardElement.remove();
+    };
+
+    _createCard = () => {
+        this._card = this._template.cloneNode(true);
+        this._cardImg = this._card.querySelector(".card__img");
+        this._cardTitle = this._card.querySelector(".card__title");
+        this._cardDeleteBtn = this._card.querySelector(".card__delete-button");
+        this._cardLikeBtn = this._card.querySelector(".card__button");
+        this._cardElement = this._cardDeleteBtn.closest(".card");
+
+        this._cardTitle.textContent = this._cardData.name;
+        this._cardImg.src = this._cardData.link;
+        this._cardImg.alt = this._cardData.name;
+
+        this._addEventListeners();
+
+    }
+
+    getCard = () => {
+        this._createCard();
+        return this._card;
+    };
+} */
+
+
+//Добавление карточек из массива
 cards.forEach((card) => {
     // Создали DOM элемент (его возвращает функция).
-    const cardElement = createCard(card);
+    const cardElement = new Card(card, ".card-template").getCard();
     // Вставили его на страницу.
     cardsContainer.append(cardElement);
 });
-
 
 // Функция-коллбэк события отправки формы.
 function onFormSubmit(event) {
@@ -146,7 +160,7 @@ function onFormSubmit(event) {
         link: imageSrc
     };
     // Получаем DOM-элемент из функции.
-    const cardElement = createCard(cardData);
+    const cardElement = new Card(cardData, ".card-template").getCard();
     // Вставляем его в DOM, но первым ребёнком`, а не в конце, как первоначальные карточки.
     cardsContainer.prepend(cardElement);
 
@@ -157,8 +171,15 @@ function onFormSubmit(event) {
     formElementAdd.reset();
 
     // берем функцию из validate.js для обнуления кнопки при повторном создании карточки
-    toggleButtonState(formAddButton, Array.from(formAddInputs));
+    //toggleButtonState(formAddButton, Array.from(formAddInputs));
+    ProfileAddIsValid.toggleButtonState();
 }
 
 // функция на валидацию форм, в качестве аргумента берет конфиг из validate.js
-enableValidation(config);
+//enableValidation(config);
+
+const ProfileEditIsValid = new FormValidator(config, popupEdit);
+ProfileEditIsValid.enableValidation();
+
+const ProfileAddIsValid = new FormValidator(config, popupAdd);
+ProfileAddIsValid.enableValidation();
