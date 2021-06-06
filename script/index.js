@@ -103,13 +103,17 @@ function closePopupClick(evt) {
     }
 }
 
+//Генерируем карточку из класса и возвращаем ее
+function renderCard(cardItem) {
+    const card = new Card(cardItem, '.card-template');
+    return card.getCard();
+}
+
 
 //Добавление карточек из массива
 cards.forEach((card) => {
-    // Создали DOM элемент (его возвращает функция).
-    const cardElement = new Card(card, ".card-template").getCard();
-    // Вставили его на страницу.
-    cardsContainer.append(cardElement);
+    // Для каждой карточки из массива применили функцию на генерацию карточки
+    cardsContainer.append(renderCard(card));
 });
 
 // Функция-коллбэк события отправки формы.
@@ -126,7 +130,7 @@ function onFormSubmit(event) {
         link: imageSrc
     };
     // Получаем DOM-элемент из функции.
-    const cardElement = new Card(cardData, ".card-template").getCard();
+    const cardElement = renderCard(cardData);
     // Вставляем его в DOM, но первым ребёнком`, а не в конце, как первоначальные карточки.
     cardsContainer.prepend(cardElement);
 
@@ -138,14 +142,14 @@ function onFormSubmit(event) {
 
     // берем функцию из validate.js для обнуления кнопки при повторном создании карточки
     //toggleButtonState(formAddButton, Array.from(formAddInputs));
-    ProfileAddIsValid.toggleButtonState();
+    profileAddIsValid.toggleButtonState();
 }
 
 // функция на валидацию форм, в качестве аргумента берет конфиг из validate.js
 //enableValidation(config);
 
-const ProfileEditIsValid = new FormValidator(config, popupEdit);
-ProfileEditIsValid.enableValidation();
+const profileEditIsValid = new FormValidator(config, popupEdit);
+profileEditIsValid.enableValidation();
 
-const ProfileAddIsValid = new FormValidator(config, popupAdd);
-ProfileAddIsValid.enableValidation();
+const profileAddIsValid = new FormValidator(config, popupAdd);
+profileAddIsValid.enableValidation();
